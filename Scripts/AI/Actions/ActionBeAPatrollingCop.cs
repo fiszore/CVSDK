@@ -26,6 +26,7 @@ namespace ActorActions {
         private enum CycleMode {
             Loop,
             PingPong,
+            Random,
         }
 
         public override ActionTransition OnResume(Actor actor) {
@@ -47,7 +48,7 @@ namespace ActorActions {
             float lastWaitDuration = patrolNodes[currentNode].waitDuration;
             if (cycleMode == CycleMode.Loop) {
                 currentNode = ++currentNode % patrolNodes.Count;
-            } else {
+            } else if(cycleMode == CycleMode.PingPong) {
                 currentNode += dir;
                 if (currentNode >= patrolNodes.Count) {
                     dir *= -1;
@@ -56,6 +57,8 @@ namespace ActorActions {
                     dir *= -1;
                     currentNode = Mathf.Min(patrolNodes.Count-1,1);
                 }
+            } else {
+                currentNode = Random.Range(0, patrolNodes.Count);
             }
             
             if (NavMesh.SamplePosition(patrolNodes[currentNode].transform.position, out NavMeshHit hit, FollowPathToPoint.maxDistanceFromNavmesh, NavMesh.AllAreas)) {
