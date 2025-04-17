@@ -11,14 +11,28 @@ namespace AI.Actions {
         }
 
         public ActionTransition Think(Actor actor) {
-            if(!target.CanInteract(actor.GetCharacter())) {
+            float distanceToTarget = Vector3.Distance(target.transform.position, actor.transform.position);
+            bool canStillUse = target.CanInteract(actor.GetCharacter());
+
+            if (distanceToTarget >= FollowPathToPoint.maxDistanceFromNavmesh * 5f)
+            {
+                if (!canStillUse)
+                {
+                    OnEnd(actor);
+                    return new ActionTransitionChangeTo(new DoNothing(2f), "I can't use that station anymore. Oh No!");
+                }
+            }
+
+            if (distanceToTarget >= FollowPathToPoint.maxDistanceFromNavmesh) {
+                return new ActionTransitionSuspendFor(new FollowPathToPoint(target.transform.position, Vector3.down, 1f), "Too far from the interactable, going to walk closer.");
+            }
+
+            if (!canStillUse)
+            {
                 OnEnd(actor);
                 return new ActionTransitionChangeTo(new DoNothing(2f), "I can't use that station anymore. Oh No!");
             }
 
-            if (Vector3.Distance(target.transform.position, actor.transform.position) >= FollowPathToPoint.maxDistanceFromNavmesh) {
-                return new ActionTransitionSuspendFor(new FollowPathToPoint(target.transform.position, Vector3.down, 1f), "Too far from the interactable, going to walk closer.");
-            }
             actor.UseInteractable(target);
             return continueWork;
         }
