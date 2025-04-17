@@ -23,7 +23,7 @@ namespace ActorActions
             {
                 return new ActionTransitionSuspendFor(new DoNothing(2f), "Gonna think for a bit.");
             }
-            if (hasWorked)
+            if (hasWorked || !(targetStation.CanInteract(actor.GetCharacter())))
             {
                 base.OnEnd(actor);
                 return new ActionTransitionChangeTo(new DoNothing(0f), "All done here!");

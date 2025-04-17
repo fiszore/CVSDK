@@ -50,7 +50,7 @@ namespace ActorActions
             return continueWork;
         }
 
-        public override ActionTransition Update(Actor actor)
+        private void UpdateCurrent()
         {
             if (cycleMode == CycleMode.Loop)
             {
@@ -74,11 +74,25 @@ namespace ActorActions
             {
                 currentNode = Random.Range(0, patrolNodes.Count);
             }
+        }
+
+        public override ActionTransition Update(Actor actor)
+        {
+            UpdateCurrent();
             var need = patrolNodes[currentNode].station;
-            if (need != null)
+            if (need != null && need.CanInteract(actor.GetCharacter()))
             {
                 return new ActionTransitionSuspendFor(new WanderToStation(need), "I want to work!");
             }
+
+            //Try one more time to find a task to work at.
+            UpdateCurrent();
+            need = patrolNodes[currentNode].station;
+            if (need != null && need.CanInteract(actor.GetCharacter()))
+            {
+                return new ActionTransitionSuspendFor(new WanderToStation(need), "I want to work!");
+            }
+
             else
             {
                 // Try to wander randomly if we got nothing to do.
