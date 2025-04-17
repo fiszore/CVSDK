@@ -26,10 +26,7 @@ namespace ActorActions {
                 return new ActionTransitionSuspendFor(new WanderToInteractable(need), "I want to wander!");
             } else {
                 // Try to wander randomly if we got nothing to do.
-                if (!NavMesh.SamplePosition(actor.transform.position, out NavMeshHit targetHit, FollowPathToPoint.maxDistanceFromNavmesh*2f, NavMesh.AllAreas)) {
-                    return continueWork;
-                }
-                return new ActionTransitionSuspendFor(new FollowPathToPoint(targetHit.position, Vector3.down, 5f), "I want to wander!");
+                return new ActionTransitionSuspendFor(new WanderRandomly(), "I want to wander!");
             }
         }
 
