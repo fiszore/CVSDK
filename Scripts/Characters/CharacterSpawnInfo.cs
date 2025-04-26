@@ -10,6 +10,7 @@ public class CharacterSpawnInfo {
     [SerializeField,SerializeReference,SubclassSelector] private InputGenerator inputSource;
     [SerializeField] private List<CharacterGroup> overrideGroups;
     [SerializeField] private List<CharacterGroup> overrideUseByGroups;
+    [SerializeField] private OverrideFlags overrideFlags;
     private AsyncOperationHandle<Civilian> handle;
     
     public AsyncOperationHandle<Civilian> GetCharacter() {
@@ -19,7 +20,7 @@ public class CharacterSpawnInfo {
         if (handle.IsValid()) {
             return handle;
         }
-
+        /*
         CivilianReference realReference = civilianPrefab;
         foreach (var mod in Modding.GetMods()) {
             foreach (var replacement in mod.GetDescription().GetReplacementCharacters()) {
@@ -27,7 +28,8 @@ public class CharacterSpawnInfo {
                     realReference = new CivilianReference(replacement.replacementGUID);
                 }
             } 
-        }
+        }*/
+        CivilianReference realReference = CharacterLibrary.Instance.GetCivilianReference(civilianPrefab.AssetGUID);
         handle = realReference.InstantiateAsync(position, rotation);
         handle.Completed += OnLoadComplete;
         return handle;
@@ -37,6 +39,16 @@ public class CharacterSpawnInfo {
         if (obj.Result is not Civilian characterBase) {
             throw new UnityException("Loaded a non-civilian as a character! Characters must have it as a behavior!");
         }
+
+        if (characterBase.gameObject.TryGetComponent(out StartingActionOverride overrides))
+        {
+            if((overrideFlags.Flags & (1 << 0)) != 0)
+                overrides.ApplyActionOverride(inputSource);
+
+            if ((overrideFlags.Flags & (1 << 1)) != 0)
+                overrides.ApplyGroupOverrides(characterBase, overrideGroups, overrideUseByGroups);
+        }
+
         characterBase.SetInputGenerator(inputSource);
         characterBase.SetGroups(overrideGroups);
         characterBase.SetUseByGroups(overrideUseByGroups);

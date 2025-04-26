@@ -1479,6 +1479,10 @@ MonoBehaviour:
     m_Key: MODDING_INVALID
     m_Metadata:
       m_Items: []
+  - m_Id: 232919833019600896
+    m_Key: SETTING_CIVILIAN_REPLACEMENT
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
