@@ -72,4 +72,10 @@ public class ReplacementSpawner : MonoBehaviour
         }
         spawnedPrefabs.Add(panel);
     }
+
+    public void RefreshPanels()
+    {
+        foreach(var panel in spawnedPrefabs)
+            panel.Refresh();
+    }
 }

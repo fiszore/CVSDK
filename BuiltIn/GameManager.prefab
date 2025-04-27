@@ -8862,6 +8862,7 @@ MonoBehaviour:
   optionsMenu: {fileID: 1183275922577176020}
   campaignMenu: {fileID: 699942354762451376}
   saveSelectMenu: {fileID: 1857304531898016465}
+  characterEditMenu: {fileID: 0}
   orbitCameraPrefab: {fileID: 7715530794101431526, guid: ed124e2780a80b14d8c3442fbb7349d7,
     type: 3}
   defaultObjectivesPrefab: {fileID: 4305035145471611310, guid: f0a78b55e6b12b84ea06b8da9c12d7f2,

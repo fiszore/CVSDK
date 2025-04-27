@@ -40,7 +40,7 @@ public class CharacterSpawner : MonoBehaviour
 
     private IEnumerator SpawnRoutine()
     {
-        yield return new WaitUntil(() => !Modding.IsLoading());
+        yield return new WaitUntil(() => !CharacterLibrary.IsLoading());
 
         List<Variant> baseCivilians = CharacterLibrary.Instance.GetDefaults();
         foreach (var civilian in baseCivilians)

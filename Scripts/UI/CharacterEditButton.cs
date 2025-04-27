@@ -9,7 +9,7 @@ public class CharacterEditButton : MonoBehaviour
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        gameObject.SetActive(!LevelManager.InLevel());
+        gameObject.SetActive(!LevelManager.InLevel() && Modding.GetMods().Count > 0);
         GetComponent<Button>().onClick.AddListener(OnClick);
     }
 

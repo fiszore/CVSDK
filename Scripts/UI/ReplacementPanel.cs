@@ -31,6 +31,11 @@ public class ReplacementPanel : MonoBehaviour
     private void OnButtonClick()
     {
         civilian.ToggleVariant();
+        Refresh();
+    }
+
+    public void Refresh()
+    {
         checkBox.enabled = civilian.Enabled;
     }
 }

@@ -4,13 +4,18 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
+using UnityEngine.UI;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Events;
 
 public class ReplacementOption : MonoBehaviour
 {
-    public LocalizedString localizedName;
+    public LocalizedString localizedTitle;
+    public LocalizedString localizedEnableAll;
+    public LocalizedString localizedDisableAll;
+    [SerializeField] private ReplacementSpawner replacementMenu;
     [SerializeField] private GameObject dropdown;
+    [SerializeField] private GameObject buttonPrefab; 
 
     private string selectionGUID;
     private VariantSelectMethod selectMethod;
@@ -22,15 +27,17 @@ public class ReplacementOption : MonoBehaviour
         this.selectionGUID = selectionGUID;
         selectMethod = CharacterLibrary.Instance.GetSelectionMethod(selectionGUID);
         if (!initialized)
+        {
+            initialized = true;
             CreateDropDowns();
+            CreateButtons();
+        }
         else
             UpdateDropDowns();
     }
 
     public void CreateDropDowns()
     {
-        initialized = true;
-
         dropdownObject = GameObject.Instantiate(dropdown, Vector3.zero, Quaternion.identity);
         dropdownObject.transform.SetParent(this.transform);
         dropdownObject.transform.localScale = Vector3.one;
@@ -39,8 +46,8 @@ public class ReplacementOption : MonoBehaviour
             if (t.name == "Label")
             {
                 //t.text = o.type.ToString();
-                t.text = localizedName.GetLocalizedString();
-                t.GetComponent<LocalizeStringEvent>().StringReference = localizedName;
+                t.text = localizedTitle.GetLocalizedString();
+                t.GetComponent<LocalizeStringEvent>().StringReference = localizedTitle;
             }
         }
         List<TMP_Dropdown.OptionData> data = new List<TMP_Dropdown.OptionData>();
@@ -52,6 +59,33 @@ public class ReplacementOption : MonoBehaviour
         drop.options = data;
         drop.onValueChanged.AddListener(SetValue);
         UpdateDropDowns();
+    }
+
+    public void CreateButtons()
+    {
+        GameObject enableButton = Instantiate(buttonPrefab, Vector3.zero, Quaternion.identity);
+        enableButton.transform.SetParent(transform);
+        enableButton.transform.localScale = Vector3.one;
+
+        TMP_Text enableText = enableButton.GetComponentInChildren<TMP_Text>();
+        enableText.text = localizedEnableAll.GetLocalizedString();
+        enableText.GetComponent<LocalizeStringEvent>().StringReference = localizedEnableAll;
+
+        enableButton.GetComponent<Button>().onClick.AddListener(() => {
+            ToggleAll(true);
+        });
+
+        GameObject disableButton = Instantiate(buttonPrefab, Vector3.zero, Quaternion.identity);
+        disableButton.transform.SetParent(transform);
+        disableButton.transform.localScale = Vector3.one;
+
+        TMP_Text disableText = disableButton.GetComponentInChildren<TMP_Text>();
+        disableText.text = localizedDisableAll.GetLocalizedString();
+        disableText.GetComponent<LocalizeStringEvent>().StringReference = localizedDisableAll;
+
+        disableButton.GetComponent<Button>().onClick.AddListener(() => {
+            ToggleAll(false);
+        });
     }
 
     private void UpdateDropDowns()
@@ -67,5 +101,13 @@ public class ReplacementOption : MonoBehaviour
         TMP_Dropdown drop = dropdownObject.GetComponentInChildren<TMP_Dropdown>();
         drop.SetValueWithoutNotify(value);
         CharacterLibrary.Instance.SetSelectionMethod(selectionGUID, (VariantSelectMethod)value);
+    }
+
+    public void ToggleAll(bool on)
+    {
+        foreach (var variant in CharacterLibrary.Instance.GetAllVariants(selectionGUID))
+            variant.ToggleVariant(on);
+
+        replacementMenu.RefreshPanels();
     }
 }

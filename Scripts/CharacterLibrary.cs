@@ -13,10 +13,17 @@ using System.Linq;
 public class CharacterLibrary : MonoBehaviour
 {
     public static CharacterLibrary Instance;
+    public List<CivilianReference> defaultCharacters;
 
+    private bool loaded = false;
     private AsyncOperationHandle<IList<GameObject>>? baseCharacterHandle;
 
     Dictionary<string, CharacterData> variants = new Dictionary<string, CharacterData>();
+
+    public static bool IsLoading()
+    {
+        return Instance == null || !Instance.loaded;
+    }
 
     private void Awake()
     {
@@ -33,9 +40,9 @@ public class CharacterLibrary : MonoBehaviour
         baseCharacterHandle ??= Addressables.LoadAssetsAsync<GameObject>(civKeys, (civilian) => {}, Addressables.MergeMode.Union, false);
 
         yield return new WaitUntil(() => baseCharacterHandle.Value.IsDone);
-        foreach (var civ in baseCharacterHandle.Value.Result)
+        foreach (var baseCivilian in defaultCharacters)
         {
-            string guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(civ));
+            string guid = baseCivilian.AssetGUID;
             if (!variants.ContainsKey(guid))
                 variants.Add(guid, new CharacterData(new CivilianReference(guid)));
         }
@@ -56,6 +63,8 @@ public class CharacterLibrary : MonoBehaviour
         {
             yield return StartCoroutine(data.LoadAllVariants());
         }
+
+        loaded = true;
     }
 
     public CivilianReference GetCivilianReference(string existingCharacterGUID)

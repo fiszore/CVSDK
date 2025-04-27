@@ -1483,6 +1483,30 @@ MonoBehaviour:
     m_Key: SETTING_CIVILIAN_REPLACEMENT
     m_Metadata:
       m_Items: []
+  - m_Id: 233266742766784512
+    m_Key: MENU_SELECT_CHARACTER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 233267309920571392
+    m_Key: MENU_TOGGLE_VARIANTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 233268234953347072
+    m_Key: MENU_MOD_OPTIONS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 233287611882852352
+    m_Key: MENU_ENABLE_ALL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 233287662113837056
+    m_Key: MENU_DISABLE_ALL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 233311224476389376
+    m_Key: LIBRARY_NOT_READY
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

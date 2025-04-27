@@ -1497,6 +1497,32 @@ MonoBehaviour:
     m_Localized: Replacement Method
     m_Metadata:
       m_Items: []
+  - m_Id: 233266742766784512
+    m_Localized: Select Character
+    m_Metadata:
+      m_Items: []
+  - m_Id: 233267309920571392
+    m_Localized: Toggle Variants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 233268234953347072
+    m_Localized: Variants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 233287611882852352
+    m_Localized: Enable All
+    m_Metadata:
+      m_Items: []
+  - m_Id: 233287662113837056
+    m_Localized: Disable All
+    m_Metadata:
+      m_Items: []
+  - m_Id: 233311224476389376
+    m_Localized: 'Loading Characters...
+
+      Please Wait.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
