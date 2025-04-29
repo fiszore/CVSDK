@@ -30,6 +30,8 @@ public class CharacterSpawnInfo {
             } 
         }*/
         CivilianReference realReference = CharacterLibrary.Instance.GetCivilianReference(civilianPrefab.AssetGUID);
+        if (realReference == null)
+            realReference = civilianPrefab;
         handle = realReference.InstantiateAsync(position, rotation);
         handle.Completed += OnLoadComplete;
         return handle;
