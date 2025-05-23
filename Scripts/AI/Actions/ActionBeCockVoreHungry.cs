@@ -71,5 +71,15 @@ namespace ActorActions {
                 default: return base.OnReceivedEvent(actor,e);
             }
         }
+
+        public override ActionEventResponse UniqueActionResponse(Actor actor, Event e)
+        {
+            switch (e) {
+                case Shoved shoved:
+                    return new ActionEventResponseTransition(new ActionTransitionSuspendFor(new GetShovedCV(shoved.GetOther()), "Who dares shove me?"));
+
+                default: return base.UniqueActionResponse(actor, e);
+            }
+        }
     }
 }

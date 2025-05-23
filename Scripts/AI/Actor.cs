@@ -80,13 +80,22 @@ public abstract class Actor : InputGenerator {
     public virtual ActionEventResponse RaiseEvent(Event e) {
         Action reactingAction = null;
         ActionEventResponse response = null;
-        foreach (var action in actionStack) {
-            response = action.OnReceivedEvent(this, e);
-            if (response is ActionEventResponseIgnore) {
-                continue;
+
+        //Check the unique actions first
+        response = startingAction.UniqueActionResponse(this, e);
+
+        if(response is ActionEventResponseIgnore) {
+            foreach (var action in actionStack) {
+                response = action.OnReceivedEvent(this, e);
+                if (response is ActionEventResponseIgnore) {
+                    continue;
+                }
+                reactingAction = action;
+                break;
             }
-            reactingAction = action;
-            break;
+        }
+        else { 
+            reactingAction = startingAction;
         }
         
         eventTransitions++;
