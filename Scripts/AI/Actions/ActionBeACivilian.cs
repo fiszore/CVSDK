@@ -14,11 +14,20 @@ namespace ActorActions {
         public override void OnSuspend(Actor actor) {
         }
 
+        public class Panicking : AnimationBool
+        {
+            public Panicking(string name, bool value) : base(name, value) { }
+        }
+
         public override ActionTransition OnResume(Actor actor) {
             switch(actor.GetKnowledgeOf(CharacterBase.GetPlayer().gameObject).GetKnowledgeLevel()) {
+                case KnowledgeDatabase.KnowledgeLevel.Ignorant:
+                    actor.RaiseEvent(new Panicking("Panicking", false));
+                    break;
                 case KnowledgeDatabase.KnowledgeLevel.Investigative:
                     return new ActionTransitionSuspendFor(new Investigate(CharacterBase.GetPlayer().gameObject), "Oh yeah I was looking for something...");
                 case KnowledgeDatabase.KnowledgeLevel.Alert:
+                    actor.RaiseEvent(new Panicking("Panicking", true));
                     return new ActionTransitionSuspendFor(new ActionRunAway(CharacterBase.GetPlayer().gameObject), "leg it!");
             }
             return continueWork;
