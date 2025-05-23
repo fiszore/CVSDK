@@ -66,6 +66,15 @@ public class InteractableLibrary : MonoBehaviour {
                 }
             }
         }
+        // If a character is in the list of interactables, diceroll to prioritize them for interaction
+        foreach (var interaction in instance.possibleInteractables)
+        {
+            if(interaction is CharacterBase voreable)
+            {
+                if(Random.Range(0,0.2f) < 0.1f)
+                    return voreable;
+            }
+        }
 
         return instance.possibleInteractables[Random.Range(0, instance.possibleInteractables.Count)];
     }
