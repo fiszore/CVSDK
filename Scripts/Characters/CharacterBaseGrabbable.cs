@@ -157,8 +157,12 @@ public partial class CharacterBase : IInteractable, IVorable {
 
         var pos = grabbingCharacter.transform.position;
         var diff = transform.position - pos;
-        if (Physics.RaycastNonAlloc(new Ray(pos, diff.normalized), hits, diff.magnitude, solidWorldMask) > 0) {
-            return false;
+        if (IsPlayer() || grabbingCharacter.IsPlayer())
+        {
+            if (Physics.RaycastNonAlloc(new Ray(pos, diff.normalized), hits, diff.magnitude, solidWorldMask) > 0)
+            {
+                return false;
+            }
         }
 
         return true;
