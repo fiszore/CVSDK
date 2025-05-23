@@ -22,12 +22,10 @@ namespace ActorActions {
         public override ActionTransition OnResume(Actor actor) {
             switch(actor.GetKnowledgeOf(CharacterBase.GetPlayer().gameObject).GetKnowledgeLevel()) {
                 case KnowledgeDatabase.KnowledgeLevel.Ignorant:
-                    actor.RaiseEvent(new Panicking("Panicking", false));
                     break;
                 case KnowledgeDatabase.KnowledgeLevel.Investigative:
                     return new ActionTransitionSuspendFor(new Investigate(CharacterBase.GetPlayer().gameObject), "Oh yeah I was looking for something...");
                 case KnowledgeDatabase.KnowledgeLevel.Alert:
-                    actor.RaiseEvent(new Panicking("Panicking", true));
                     return new ActionTransitionSuspendFor(new ActionRunAway(CharacterBase.GetPlayer().gameObject), "leg it!");
             }
             return continueWork;
@@ -87,6 +85,24 @@ namespace ActorActions {
                 }
                 default: return base.OnReceivedEvent(actor,e);
             }
+        }
+
+        public override ActionEventResponse UniqueActionResponse(Actor actor, Event e)
+        {
+            if(e is KnowledgeChanged knowledgeChanged)
+            {
+                if (knowledgeChanged.GetKnowledge().target.TryGetComponent(out CharacterBase character) && character.IsPlayer()) { 
+                    switch(knowledgeChanged.GetKnowledge().GetKnowledgeLevel()) {
+                        case KnowledgeDatabase.KnowledgeLevel.Ignorant:
+                            actor.RaiseEvent(new Panicking("Panicking", false));
+                            break;
+                        case KnowledgeDatabase.KnowledgeLevel.Alert:
+                            actor.RaiseEvent(new Panicking("Panicking", true));
+                            break;
+                    }
+                }
+            }
+            return base.UniqueActionResponse(actor, e);
         }
     }
 }
