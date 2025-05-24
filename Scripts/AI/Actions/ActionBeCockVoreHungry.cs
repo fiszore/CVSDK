@@ -43,7 +43,8 @@ namespace ActorActions {
                     return new ActionEventResponseTransition( new ActionTransitionSuspendFor(new Grabbed(grabbedByCharacter.GetCharacter()), "Ack! Grabbed!"));
                 case KnowledgeChanged knowledgeChanged:
                     if (knowledgeChanged.GetKnowledge().GetKnowledgeLevel() != KnowledgeDatabase.KnowledgeLevel.Ignorant) {
-                        actor.StopUsingAnything();
+                        if(!actor.GetCharacter().voreMachine.IsVoring())
+                            actor.StopUsingAnything();
                     }
 
                     if (knowledgeChanged.GetKnowledge().target.TryGetComponent(out CharacterBase character) && character.IsPlayer()) {
@@ -61,9 +62,11 @@ namespace ActorActions {
                     return ignoreResponse;
                 case HeardInterestingNoise noise: {
                     if (actor.GetKnowledgeOf(noise.GetOwner().gameObject).GetKnowledgeLevel() == KnowledgeDatabase.KnowledgeLevel.Ignorant) {
-                        if (Random.Range(0f, 1f) < noise.GetHeardSound().GetInterestLevel()) {
-                            return new ActionEventResponseTransition(new ActionTransitionSuspendFor(new ActionTurnToFaceObject(noise.GetOwner().gameObject, 2f, noise.GetNoiseHeardDirection()),
-                                "What was that?"));
+                        if(!actor.GetCharacter().voreMachine.IsVoring()) {
+                            if (Random.Range(0f, 1f) < noise.GetHeardSound().GetInterestLevel()) {
+                                return new ActionEventResponseTransition(new ActionTransitionSuspendFor(new ActionTurnToFaceObject(noise.GetOwner().gameObject, 2f, noise.GetNoiseHeardDirection()),
+                                    "What was that?"));
+                            }
                         }
                     }
                     return ignoreResponse;
