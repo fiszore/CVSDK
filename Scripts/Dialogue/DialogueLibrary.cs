@@ -23,7 +23,7 @@ public class DialogueLibrary : MonoBehaviour {
     
 
     [Serializable]
-    private class DialogueGroup {
+    public class DialogueGroup {
         [SerializeField] public DialogueGroupType type;
         [SerializeField] public Dialogue[] dialogues;
     }
@@ -37,11 +37,30 @@ public class DialogueLibrary : MonoBehaviour {
     }
 
     public static DialogueTheme GetCondomTheme() => instance.condomTheme;
-    public static Dialogue GetDialogue(DialogueGroupType type) {
-        foreach (var group in instance.groups) {
+    public static Dialogue GetDialogue(DialogueGroupType type, CharacterDialogue characterDialogue) {
+        if (!characterDialogue.ShouldSpeak())
+            return null;
+
+        Dialogue spokenLines = null;
+
+        if (characterDialogue.Dialogue != null)
+            spokenLines = DetermineDialogue(characterDialogue.Dialogue, type);
+
+        if (spokenLines != null || !characterDialogue.UseDefaults)
+            return spokenLines;
+
+        spokenLines = DetermineDialogue(instance.groups, type);
+        return spokenLines;
+    }
+
+    private static Dialogue DetermineDialogue(DialogueGroup[] dialogueGroups, DialogueGroupType type)
+    {
+        foreach (var group in dialogueGroups)
+        {
             if (group.type != type) continue;
             return group.dialogues[Random.Range(0, group.dialogues.Length)];
         }
+
         return null;
     }
 }

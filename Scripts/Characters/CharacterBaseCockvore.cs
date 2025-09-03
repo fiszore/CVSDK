@@ -77,7 +77,7 @@ public partial class CharacterBase {
             yield break;
         }
 
-        StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.ChurnFinished).Begin(new List<DialogueCharacter> {
+        StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.ChurnFinished, Dialogue).Begin(new List<DialogueCharacter> {
             DialogueCharacterSpecificCharacter.Get(this),
             DialogueCharacterInanimateObject.Get(voreContainer.GetStorageTransform(), DialogueLibrary.GetCondomTheme()),
         }));
@@ -122,7 +122,7 @@ public partial class CharacterBase {
     
     private void OnCockCockVoreStart(CockVoreMachine.VoreStatus status) {
         if (Random.Range(0f, 1f) > 0.25f) {
-            StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.Vore).Begin(new List<DialogueCharacter> {
+            StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.Vore, Dialogue).Begin(new List<DialogueCharacter> {
                 DialogueCharacterSpecificCharacter.Get(status.other.transform.GetComponent<CharacterBase>()),
                 DialogueCharacterSpecificCharacter.Get(this),
             }));

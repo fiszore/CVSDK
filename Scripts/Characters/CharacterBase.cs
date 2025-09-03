@@ -44,6 +44,7 @@ public abstract partial class CharacterBase : MonoBehaviour, ITasable, IChurnabl
     [SerializeField] private float volumeChurned = 1f;
     //private AudioPack landingPack;
     [SerializeField] private DialogueTheme dialogueTheme;
+    private CharacterDialogue dialogue;
 
     protected InputGenerator inputGenerator;
     [SerializeField, SerializeReference, SubclassSelector]
@@ -72,6 +73,7 @@ public abstract partial class CharacterBase : MonoBehaviour, ITasable, IChurnabl
     public bool IsSprinting() => inputGenerator.GetSprint() && GetCrouchAmount() < 0.5f;
     protected bool grounded;
 
+    public CharacterDialogue Dialogue => dialogue;
     private Dictionary<PenetrableType, Penetrable> backupPenetrables;
 
     public Penetrable GetPenetrable(PenetrableType type) {
@@ -285,6 +287,9 @@ public abstract partial class CharacterBase : MonoBehaviour, ITasable, IChurnabl
 
         gameObject.AddComponent<PhysicsAudio>();
 
+        dialogue = GetComponentInChildren<CharacterDialogue>();
+        if(dialogue == null)
+            dialogue = gameObject.AddComponent<CharacterDialogue>();
         
         characterMask = LayerMask.GetMask("Characters");
         visibilityMask = LayerMask.GetMask("World", "BlocksVision", "WorldButIgnoredByCamera");

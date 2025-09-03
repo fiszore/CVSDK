@@ -45,7 +45,7 @@ public class GloryHole : BreedingStand {
     public override void OnBeginInteract(CharacterBase from) {
         base.OnBeginInteract(from);
         if (lastUseTime == 0 || Time.time - lastUseTime > 8f) {
-            GameManager.StaticStartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.PartnerSex).Begin(new DialogueCharacter[] {
+            GameManager.StaticStartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.PartnerSex, from.Dialogue).Begin(new DialogueCharacter[] {
                 DialogueCharacterSpecificCharacter.Get(from),
                 DialogueCharacterSpecificCharacter.Get(submissive),
             }));
@@ -115,7 +115,7 @@ public class GloryHole : BreedingStand {
         cumAccumulation += amount;
         submissiveController.SetCumInflationAmount(cumAccumulation);
         if (!gotCum && beingUsedBy != null) {
-            StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.PartnerSexFinished).Begin(new DialogueCharacter[] {
+            StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.PartnerSexFinished, beingUsedBy.Dialogue).Begin(new DialogueCharacter[] {
                 DialogueCharacterSpecificCharacter.Get(beingUsedBy),
                 DialogueCharacterSpecificCharacter.Get(submissive),
             }));

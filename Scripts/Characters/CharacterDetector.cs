@@ -375,12 +375,12 @@ public abstract class CharacterDetector : CharacterBase {
             return;
         }
         if (cryRoutine == null && knowledge.target == GetPlayer().gameObject && knowledge.GetKnowledgeLevel() == KnowledgeDatabase.KnowledgeLevel.Alert) {
-            StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.CivExclaim).Begin(new List<DialogueCharacter> { DialogueCharacterSpecificCharacter.Get(this), new DialogueCharacterPlayer() }));
+            StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.CivExclaim, Dialogue).Begin(new List<DialogueCharacter> { DialogueCharacterSpecificCharacter.Get(this), new DialogueCharacterPlayer() }));
             cryRoutine = StartCoroutine(Cry());
         }
 
         if (knowledge.GetKnowledgeLevel() == KnowledgeDatabase.KnowledgeLevel.Investigative && lastLevel == KnowledgeDatabase.KnowledgeLevel.Ignorant) {
-            StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.Investigate).Begin(new List<DialogueCharacter> { DialogueCharacterSpecificCharacter.Get(this), new DialogueCharacterPlayer() }));
+            StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.Investigate, Dialogue).Begin(new List<DialogueCharacter> { DialogueCharacterSpecificCharacter.Get(this), new DialogueCharacterPlayer() }));
         }
 
         GetActor()?.RaiseEvent(new KnowledgeChanged(knowledge));

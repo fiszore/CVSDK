@@ -43,7 +43,7 @@ public class CumRecombobulator : NeedStation {
             }
             
             Destroy(condom.gameObject);
-            beingUsedBy.StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.Recombobulate).Begin(new DialogueCharacter[] {
+            beingUsedBy.StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.Recombobulate, beingUsedBy.Dialogue).Begin(new DialogueCharacter[] {
                 DialogueCharacterSpecificCharacter.Get(churnable.transform.GetComponent<CharacterBase>()),
                 DialogueCharacterSpecificCharacter.Get(beingUsedBy)
             }));

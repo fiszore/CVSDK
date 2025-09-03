@@ -44,7 +44,7 @@ namespace AI.Actions {
             if (!saidDialogue) {
                 saidDialogue = true;
                 var character = actor.GetCharacter();
-                character.StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.FoundCondom).Begin(new DialogueCharacter[] {
+                character.StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.FoundCondom, character.Dialogue).Begin(new DialogueCharacter[] {
                         DialogueCharacterSpecificCharacter.Get(character),
                         DialogueCharacterInanimateObject.Get(targetCondom.transform, DialogueLibrary.GetCondomTheme()),
                 }));
