@@ -203,7 +203,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: aef09d2f361f66b4ea034096e44f9e05, type: 2}
   m_sharedMaterial: {fileID: 7453147263721129256, guid: aef09d2f361f66b4ea034096e44f9e05,
@@ -372,6 +372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetRect: {fileID: 7192253682266294214}
   attachedTransform: {fileID: 0}
+  worldPositionUpdates: 0
   targetText: {fileID: 7275243546511832796}
   background: {fileID: 8557088582148151389}
   localizeEvent: {fileID: 4969180033531150037}

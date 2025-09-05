@@ -42,6 +42,8 @@ public partial class CharacterBase : IInteractable, IVorable {
         Back = 1,
     }
 
+    float lastGrabTime = 0f;
+
     private class GrabbingIK : MonoBehaviour {
         private CharacterBase target;
         private CharacterBase self;
@@ -197,10 +199,13 @@ public partial class CharacterBase : IInteractable, IVorable {
         collider.center = collider.center.With(y:(height - 1f) / 2f - 1f + collider.radius);
         KnowledgeDatabase.ForcePoll();
 
-        StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.Grab, from.Dialogue).Begin(new List<DialogueCharacter> {
+        if (lastGrabTime == 0 || Time.time - lastGrabTime > 8f)
+        {
+            StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.Grab, from.Dialogue).Begin(new List<DialogueCharacter> {
             DialogueCharacterSpecificCharacter.Get(from),
             DialogueCharacterSpecificCharacter.Get(this),
         }));
+        }
     }
 
     public virtual void OnEndInteract(CharacterBase from) {

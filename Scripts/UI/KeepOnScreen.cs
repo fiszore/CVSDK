@@ -16,6 +16,12 @@ public class KeepOnScreen : MonoBehaviour {
         worldPosition = target.position+offset;
     }
 
+    public void AdjustOffset(Vector3 adjustment)
+    {
+        offset += adjustment;
+        worldPosition = attachedTransform.position+offset;
+    }
+
     public Vector3 GetAttachPosition() {
         if (worldPositionUpdates) {
             return attachedTransform.position + offset;

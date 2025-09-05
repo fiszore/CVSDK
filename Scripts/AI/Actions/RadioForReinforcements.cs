@@ -22,7 +22,7 @@ public class RadioForReinforcements : Action {
             if (cop.knowledgeDatabase.GetKnowledge(target.gameObject).awareness < 1f) {
                 actor.RaiseEvent(new RadioEvent("TalkRadio"));
                 CharacterBase reporter = actor.GetCharacter();
-                reporter.StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.RadioCall, reporter.Dialogue).Begin(new List<DialogueCharacter> {
+                GameManager.StaticStartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.RadioCall, reporter.Dialogue).Begin(new List<DialogueCharacter> {
                         DialogueCharacterSpecificCharacter.Get(actor.GetCharacter()),
                 }));
                 return new ActionTransitionSuspendFor(new DoNothing(1.5f), "Radioing in!");

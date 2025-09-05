@@ -59,4 +59,6 @@ public class DialoguePrefab : KeepOnScreen {
         targetText.color = targetText.color.With(a: count == 0 ? 0f : alpha*alphaMultiplier);
         targetText.maxVisibleCharacters = count;
     }
+
+    public Transform GetTransform() => background.transform;
 }

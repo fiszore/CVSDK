@@ -33,9 +33,18 @@ public class Dialogue : ScriptableObject {
                 obj.transform.localPosition = Vector3.zero;
                 obj.transform.localRotation = Quaternion.identity;
                 var prefab = obj.GetComponent<DialoguePrefab>();
+
+                DialogueContainer container = character.GetTransform().GetComponent<DialogueContainer>();
+                if (container == null)
+                {
+                    Debug.Log("Added new container");
+                    container = character.GetTransform().gameObject.AddComponent<DialogueContainer>();
+                }
+
+                container.AddPrefab(prefab);
                 prefab.AttachTo(character.GetTransform());
                 dialoguePrefabs.Add(prefab);
-                
+
                 var handle = line.line.GetLocalizedStringAsync();
                 yield return handle;
                 string lineString = handle.Result;
