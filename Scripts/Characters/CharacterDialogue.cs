@@ -13,11 +13,11 @@ public class CharacterDialogue : MonoBehaviour
     [SerializeField] private Chatter chatterLevel = Chatter.Default;
 
     [Header("Dialogue")]
-    [SerializeField] DialogueLibrary.DialogueGroup[] dialogeOverrides;
+    [SerializeField] DialogueLibrary.DialogueGroup[] dialogueOverrides;
 
     public bool UseDefaults => useDefaults;
 
-    public DialogueLibrary.DialogueGroup[] Dialogue => dialogeOverrides;
+    public DialogueLibrary.DialogueGroup[] Dialogue => dialogueOverrides;
 
     public bool ShouldSpeak()
     {

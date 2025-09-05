@@ -196,6 +196,11 @@ public partial class CharacterBase : IInteractable, IVorable {
         float height = collider.height;
         collider.center = collider.center.With(y:(height - 1f) / 2f - 1f + collider.radius);
         KnowledgeDatabase.ForcePoll();
+
+        StartCoroutine(DialogueLibrary.GetDialogue(DialogueLibrary.DialogueGroupType.Grab, from.Dialogue).Begin(new List<DialogueCharacter> {
+            DialogueCharacterSpecificCharacter.Get(from),
+            DialogueCharacterSpecificCharacter.Get(this),
+        }));
     }
 
     public virtual void OnEndInteract(CharacterBase from) {

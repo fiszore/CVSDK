@@ -19,6 +19,8 @@ public class DialogueLibrary : MonoBehaviour {
         Investigate,
         PartnerSex,
         PartnerSexFinished,
+        Grab,
+        RadioCall,
     }
     
 
@@ -37,16 +39,16 @@ public class DialogueLibrary : MonoBehaviour {
     }
 
     public static DialogueTheme GetCondomTheme() => instance.condomTheme;
-    public static Dialogue GetDialogue(DialogueGroupType type, CharacterDialogue characterDialogue) {
-        if (!characterDialogue.ShouldSpeak())
+    public static Dialogue GetDialogue(DialogueGroupType type, CharacterDialogue speaker) {
+        if (!speaker.ShouldSpeak())
             return null;
 
         Dialogue spokenLines = null;
 
-        if (characterDialogue.Dialogue != null)
-            spokenLines = DetermineDialogue(characterDialogue.Dialogue, type);
+        if (speaker.Dialogue != null)
+            spokenLines = DetermineDialogue(speaker.Dialogue, type);
 
-        if (spokenLines != null || !characterDialogue.UseDefaults)
+        if (spokenLines != null || !speaker.UseDefaults)
             return spokenLines;
 
         spokenLines = DetermineDialogue(instance.groups, type);

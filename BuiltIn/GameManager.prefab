@@ -9325,6 +9325,14 @@ MonoBehaviour:
     dialogues:
     - {fileID: 11400000, guid: e583040b22418004f946b24b69b20633, type: 2}
     - {fileID: 11400000, guid: 3b28b49be3cb2d94688c7b623f2eff4f, type: 2}
+  - type: 10
+    dialogues:
+    - {fileID: 11400000, guid: c3084e79c703ff842b2eebe5244b53be, type: 2}
+    - {fileID: 11400000, guid: 2df02f3ae50e78540b732a9fa597a3d5, type: 2}
+    - {fileID: 11400000, guid: dc0999620c397c04e84c8e564958131b, type: 2}
+  - type: 11
+    dialogues:
+    - {fileID: 11400000, guid: f4bb95dc8a8a64e4c96b6a4bee4a5790, type: 2}
 --- !u!114 &4813826164823385680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17449,12 +17457,12 @@ PrefabInstance:
     - target: {fileID: 1633996013338634964, guid: 00ecd2edd8fc0c74eb29a0bc814af1d4,
         type: 3}
       propertyPath: m_fontSize
-      value: 28
+      value: 47.2
       objectReference: {fileID: 0}
     - target: {fileID: 4614752349011840884, guid: 00ecd2edd8fc0c74eb29a0bc814af1d4,
         type: 3}
       propertyPath: m_fontSize
-      value: 30.9
+      value: 52.05
       objectReference: {fileID: 0}
     - target: {fileID: 6702234079679004405, guid: 00ecd2edd8fc0c74eb29a0bc814af1d4,
         type: 3}
