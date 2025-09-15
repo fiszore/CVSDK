@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - actor: 0
+    subject: 1
     line:
       m_TableReference:
         m_TableCollectionName: GUID:801b23fcb4b7b884196ed7584cceb3c9
@@ -23,7 +24,6 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  talkSFX: {fileID: 11400000, guid: 104979023834723488009cd5c67b1081, type: 2}
   references:
     version: 2
     RefIds: []

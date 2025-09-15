@@ -24,4 +24,14 @@ public class DialogueCharacterSpecificCharacterLoader : DialogueCharacter {
         }
         return overrideTheme;
     }
+
+    public override CharacterDialogue GetDialogueOverrides()
+    {
+        var handle = characterLoader.GetCharacterAsync();
+        if (handle is { IsDone: true, Status: AsyncOperationStatus.Succeeded })
+        {
+            return handle.Result.Dialogue;
+        }
+        return null;
+    }
 }

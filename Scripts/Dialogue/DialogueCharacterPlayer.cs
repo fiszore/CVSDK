@@ -13,4 +13,9 @@ public class DialogueCharacterPlayer : DialogueCharacter {
         }
         return themeOverride;
     }
+
+    public override CharacterDialogue GetDialogueOverrides()
+    {
+        return CharacterBase.GetPlayer().Dialogue;
+    }
 }

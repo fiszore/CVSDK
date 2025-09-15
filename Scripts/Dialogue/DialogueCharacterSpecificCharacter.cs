@@ -22,4 +22,9 @@ public class DialogueCharacterSpecificCharacter : DialogueCharacter {
         }
         return overrideTheme;
     }
+
+    public override CharacterDialogue GetDialogueOverrides()
+    {
+        return character.Dialogue;
+    }
 }

@@ -9291,19 +9291,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f46f05f9f3e466a4a8aff6a48a9cbe63, type: 2}
   - type: 6
     dialogues:
-    - {fileID: 11400000, guid: 72df7665f6faea541950b9ad7f3501e0, type: 2}
-    - {fileID: 11400000, guid: 712498ddc8fd3844290d1cde2fd8e789, type: 2}
-    - {fileID: 11400000, guid: 4c6a675aafc33264880337fe30616b3f, type: 2}
-    - {fileID: 11400000, guid: 535c8eaca2559bc4f8a43d987def7d9c, type: 2}
-    - {fileID: 11400000, guid: 5e2b63ffaddce124e824be427966b2dc, type: 2}
     - {fileID: 11400000, guid: 8993f21b011cad644b706db14b3b1951, type: 2}
-    - {fileID: 11400000, guid: 38b444dce6820d742b9173cdec02acec, type: 2}
-    - {fileID: 11400000, guid: c6de2098eda28cb4eb7c8c5685c8bede, type: 2}
-    - {fileID: 11400000, guid: a79cfa9724a7e1f49a5b8004a7a1892a, type: 2}
-    - {fileID: 11400000, guid: 2f04b1d63e61b484682a9e40eaca639d, type: 2}
-    - {fileID: 11400000, guid: 41516b33e3d20394bb8fa596d3b30542, type: 2}
-    - {fileID: 11400000, guid: 48994509f1c3cb6428ef2ff61335c874, type: 2}
-    - {fileID: 11400000, guid: 66f1ca787b8abb345b5ed0e36ebcf317, type: 2}
   - type: 7
     dialogues:
     - {fileID: 11400000, guid: 0dd3e350cf4bf924ba504026f18edbb9, type: 2}

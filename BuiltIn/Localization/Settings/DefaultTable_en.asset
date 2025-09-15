@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 801b23fcb4b7b884196ed7584cceb3c9, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 336337376878264326
   m_TableData:
   - m_Id: 2597174431744
     m_Localized: NAKED!?
@@ -39,9 +40,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2597216374785
-    m_Localized: Big rabbit!?
+    m_Localized: Big {subjectIdentifier}!?
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 336337376878264326
   - m_Id: 2597216374786
     m_Localized: Oh its huge!
     m_Metadata:
@@ -968,9 +970,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 49223706696273920
-    m_Localized: Nothing left but bunny spunk!
+    m_Localized: Nothing left but {subjectIdentifier} spunk!
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 336337376878264326
   - m_Id: 49223706696273921
     m_Localized: They are so soft now...
     m_Metadata:
@@ -1495,4 +1498,8 @@ MonoBehaviour:
       m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 336337376878264326
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00d02850b3e0ae0001d028b65c020000

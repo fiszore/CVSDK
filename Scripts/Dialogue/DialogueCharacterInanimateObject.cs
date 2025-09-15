@@ -20,4 +20,9 @@ public class DialogueCharacterInanimateObject : DialogueCharacter {
     public override DialogueTheme GetDialogueTheme() {
         return theme;
     }
+
+    public override CharacterDialogue GetDialogueOverrides()
+    {
+        return null;
+    }
 }

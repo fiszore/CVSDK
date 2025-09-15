@@ -8,5 +8,6 @@ public class DialogueLine {
         Third
     }
     public Actor actor;
+    public Actor subject;
     public LocalizedString line;
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.SmartFormat;
 
 [CreateAssetMenu(fileName = "New Dialogue", menuName = "Data/Dialogue", order = 8)]
 public class Dialogue : ScriptableObject {
@@ -28,22 +29,34 @@ public class Dialogue : ScriptableObject {
                 if ((int)line.actor > characters.Count) {
                     continue;
                 }
-                var character = characters[(int)line.actor];
-                var obj = Instantiate(character.GetDialogueTheme().GetDialoguePrefab().gameObject);
+                var speaker = characters[(int)line.actor];
+                var obj = Instantiate(speaker.GetDialogueTheme().GetDialoguePrefab().gameObject);
                 obj.transform.localPosition = Vector3.zero;
                 obj.transform.localRotation = Quaternion.identity;
                 var prefab = obj.GetComponent<DialoguePrefab>();
 
-                DialogueContainer container = character.GetTransform().GetComponent<DialogueContainer>();
+                DialogueContainer container = speaker.GetTransform().GetComponent<DialogueContainer>();
                 if (container == null)
                 {
-                    Debug.Log("Added new container");
-                    container = character.GetTransform().gameObject.AddComponent<DialogueContainer>();
+                    container = speaker.GetTransform().gameObject.AddComponent<DialogueContainer>();
                 }
 
                 container.AddPrefab(prefab);
-                prefab.AttachTo(character.GetTransform());
+                prefab.AttachTo(speaker.GetTransform());
                 dialoguePrefabs.Add(prefab);
+                var subject = (int)line.subject < characters.Count ? characters[(int)line.subject] : speaker;
+                var speakerOverrides = speaker.GetDialogueOverrides();
+                var subjectOverrides = subject.GetDialogueOverrides();
+
+                var vars = new
+                {
+                    speakerName = speakerOverrides.CharacterName,
+                    speakerIdentifier = speakerOverrides.Identifier,
+                    subjectName = subjectOverrides.CharacterName,
+                    subjectIdentifier = subjectOverrides.Identifier,
+                };
+
+                line.line.Arguments = new object[] { vars };
 
                 var handle = line.line.GetLocalizedStringAsync();
                 yield return handle;
@@ -58,7 +71,7 @@ public class Dialogue : ScriptableObject {
                     float t = (Time.time - startTime) / duration;
                     int visibleCharacters = Mathf.CeilToInt(t * lineString.Length);
                     prefab.SetMaxVisibleCharacters(visibleCharacters);
-                    AudioPack.PlayClipAtPoint(character.GetDialogueTheme().GetTalkPack(), prefab.GetAttachPosition());
+                    AudioPack.PlayClipAtPoint(speaker.GetDialogueTheme().GetTalkPack(), prefab.GetAttachPosition());
                     yield return interval;
                 }
                 prefab.SetMaxVisibleCharacters(lineString.Length+1);

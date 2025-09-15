@@ -5,8 +5,8 @@ using UnityEngine;
 public class CharacterDialogue : MonoBehaviour
 {
     [Header("Identification")]
-    [SerializeField] private string characterName = "Agent 789";
-    [SerializeField] private string identifier = "rabbit";
+    [SerializeField] private string characterName = "Employee";
+    [SerializeField] private string identifier = "person";
 
     [Header("Settings")]
     [SerializeField] private bool useDefaults = true;
@@ -16,6 +16,8 @@ public class CharacterDialogue : MonoBehaviour
     [SerializeField] DialogueLibrary.DialogueGroup[] dialogueOverrides;
 
     public bool UseDefaults => useDefaults;
+    public string CharacterName => characterName;
+    public string Identifier => identifier;
 
     public DialogueLibrary.DialogueGroup[] Dialogue => dialogueOverrides;
 
