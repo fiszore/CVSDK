@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization.SmartFormat;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.Tables;
 
 [CreateAssetMenu(fileName = "New Dialogue", menuName = "Data/Dialogue", order = 8)]
 public class Dialogue : ScriptableObject {
@@ -48,15 +50,25 @@ public class Dialogue : ScriptableObject {
                 var speakerOverrides = speaker.GetDialogueOverrides();
                 var subjectOverrides = subject.GetDialogueOverrides();
 
-                var vars = new
+                bool isSmart = false;
                 {
-                    speakerName = speakerOverrides.CharacterName,
-                    speakerIdentifier = speakerOverrides.Identifier,
-                    subjectName = subjectOverrides.CharacterName,
-                    subjectIdentifier = subjectOverrides.Identifier,
-                };
+                    var stringTable = LocalizationSettings.StringDatabase.GetTable(line.line.TableReference) as StringTable;
+                    var entry = stringTable?.GetEntryFromReference(line.line.TableEntryReference) as StringTableEntry;
+                    isSmart = entry != null && entry.IsSmart;
+                }
 
-                line.line.Arguments = new object[] { vars };
+                // Only pass arguments if the entry is Smart
+                if (isSmart)
+                {
+                    var vars = new
+                    {
+                        speakerName = speakerOverrides.CharacterName,
+                        speakerIdentifier = speakerOverrides.Identifier,
+                        subjectName = subjectOverrides.CharacterName,
+                        subjectIdentifier = subjectOverrides.Identifier,
+                    };
+                    line.line.Arguments = new object[] { vars };
+                }
 
                 var handle = line.line.GetLocalizedStringAsync();
                 yield return handle;
